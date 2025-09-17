@@ -1,0 +1,12 @@
+int $rah;
+int $other;
+$rah = rand(20);
+$other = rand(20);
+
+
+polyCube -w 15 -h 15 -d 15 -name "testCube";
+move -r 10 10 0;
+polySphere -r $rah -name "testSphere";
+move -r 10 20 0;
+polyCone -r $rah -h $other -name "testCone";
+move -r 5 5 0;

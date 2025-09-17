@@ -1,0 +1,13 @@
+proc Build (int $steps, int $length, int $width, int $height, int $offset, float $stepHeight, int $rotation)
+{
+	for ($i = 0; $i<$steps; $i++)
+	{
+		polyCube -w $width -h $height -d $length;
+		rotate 0 ($i * ($rotation/$steps)) 0;
+		move -os 0 ($i*$stepHeight)(($length/2)+$offset);
+	}
+	polyCylinder -r $width -h ($stepHeight*$steps);
+	move 0 (($stepHeight*$steps)/2) 0;
+}
+
+Build(50, 4, 1, 1, 1, .5, 360);
