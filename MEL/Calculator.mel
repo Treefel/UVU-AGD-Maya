@@ -1,0 +1,108 @@
+global proc float math_sum(float $input[])
+{
+    float $result = 0;
+    for ($i = 0; $i < size($input); $i++)
+    {
+        $result += $input[$i];
+    }
+    return $result;
+}
+
+global proc float math_diff(float $input[])
+{
+    float $result = $input[0];
+    for ($i = 1; $i < size($input); $i++)
+    {
+        $result -= $input[$i];
+    }
+    return $result;
+}
+
+global proc float math_multiply(float $input[])
+{
+    float $result = 0;
+    for ($i = 0; $i < $input[1]; $i++)
+    {
+        $result += $input[0];
+    }
+    return $result;
+}
+
+global proc float math_divide(float $input[])
+{
+    float $result = $input[0];
+    for ($i = 1; $i < size($input); $i++)
+    {
+        $result /= $input[$i];
+    }
+    return $result;
+}
+
+global proc float math_power(float $input[])
+{
+    float $result = $input[0];
+    for ($i = 1; $i < $input[1]; $i++)
+    {
+        $result *= $input[0];
+    }
+    return $result;
+}
+
+global proc float math_mean(float $input[])
+{
+    float $result = 0;
+    for ($i = 0; $i < size($input); $i++)
+    {
+        $result += $input[$i];
+    }
+    $result =/ size($input);
+    return $result;
+}
+
+global proc float math_median(float $input[])
+{
+    int $index = 0;
+    float $result = 0;
+    float $size = size($input);
+    $input = sort($input);
+    if ($size % 2 == 0)
+    {
+        $index = ($size/2);
+        $result = ($input[$index]+$input[$index-1])/2;
+    }
+    else
+    {
+        $index = ($size-1)/2;
+        $result = $input[$index];
+    }
+    return $result;
+}
+
+global proc Calculator(float $arry[], string $funct)
+{
+    if($funct == "sum"){
+        print("sum:" + math_sum($arry));
+    }
+    else if($funct == "difference"){
+        print("difference:" + math_diff($arry));
+    }
+    else if($funct == "multiply"){
+        print("multiplication:" + math_multiply($arry));
+    }
+    else if($funct == "divide"){
+        print("division:" + math_divide($arry));
+    }
+    else if($funct == "power"){
+        print("power:" + math_power($arry));
+    }
+    else if($funct == "mean"){
+        print("mean:" + math_mean($arry));
+    }
+    else if($funct == "median"){
+        print("median:" + math_median($arry));
+    }
+    else
+    {
+        print("function not recognized");
+    }
+}
