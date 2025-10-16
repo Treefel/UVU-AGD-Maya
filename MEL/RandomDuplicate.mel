@@ -1,0 +1,53 @@
+string $window = `window -title "ourWindow" -widthHeight 200 55`;
+gridLayout -numberOfColumns 3 -cellWidthHeight 150 50;
+    text -label "# of objects";
+    intField numfield;
+    text -label " ";
+    text -label "x cord min/max:" -bgc .4 0 0;
+    floatField -value 0 xfieldMin;
+    floatField -value 0 xfieldMax;
+    text -label "y cord min/max:" -bgc 0 .4 0;
+    floatField -value 0 yfieldMin;
+    floatField -value 0 yfieldMax;
+    text -label "z cord min/max:" -bgc 0 0 .4;
+    floatField -value 0 zfieldMin;
+    floatField -value 0 zfieldMax;
+    text -label "Random Duplication:";
+    button -label "GO!" -c "randomDuplicate()";
+showWindow $window;
+
+global proc randomDuplicate() 
+{
+
+    // -q = query (asking for the information)
+    // we are asking for -v which is the value of the field
+    int $numval = `intField -q -v numfield`;
+    float $xvalMin = `floatField -q -v xfieldMin`;
+    float $xvalMax = `floatField -q -v xfieldMax`;
+    float $yvalMin = `floatField -q -v yfieldMin`;
+    float $yvalMax = `floatField -q -v yfieldMax`;
+    float $zvalMin = `floatField -q -v zfieldMin`;
+    float $zvalMax = `floatField -q -v zfieldMax`;
+
+    
+    string $sel[] = `ls -sl`;
+    if (size($sel) == 0)
+    {
+        error "please select an object";
+    }
+    else
+    {
+        print (size($sel));
+        for ($i = 0; $i < size($sel); $i++)
+        {
+            for ($o = 0; $o < $numval; $o++)
+            {
+                duplicate $sel[$i];
+                move (`rand $xvalMin $xvalMax`) (`rand $yvalMin $yvalMax`) (`rand $zvalMin $zvalMax`);
+                select $sel[$i];
+                
+            }
+        }
+    }
+    
+}
